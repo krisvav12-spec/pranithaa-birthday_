@@ -1,0 +1,312 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranithaa 1st Birthday</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* INTRO */
+#intro {
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#ffdde1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    cursor:pointer;
+}
+#intro h1 {
+    font-family:'Playfair Display';
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow:0 0 10px white; }
+    to { text-shadow:0 0 30px pink; }
+}
+.fade-out {
+    animation: fadeOut 1.5s forwards;
+}
+@keyframes fadeOut {
+    to { opacity:0; visibility:hidden; }
+}
+
+/* SLIDESHOW */
+.slideshow {
+    position: fixed;
+    width:100%;
+    height:100%;
+    z-index:-2;
+}
+.slide {
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform:scale(1);
+    filter:blur(5px);
+    transition:1.5s;
+}
+.slide.active {
+    opacity:1;
+    transform:scale(1.1);
+    filter:blur(0);
+}
+.slideshow::after {
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+}
+
+/* FAIRY SPARKLES */
+.fairy-bg span {
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    animation: float 6s linear infinite;
+}
+@keyframes float {
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* HERO */
+.hero-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.2);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 0 40px rgba(255,182,193,0.5);
+}
+
+.baby-text {
+    font-size:36px;
+    background: linear-gradient(90deg,#ff9a9e,#fad0c4,#ffd1ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.name { font-size:28px; letter-spacing:3px; }
+
+/* PHOTO */
+.photo-container {
+    width:180px;
+    height:180px;
+    margin:20px auto;
+    position:relative;
+}
+.photo-container img {
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    border:3px solid white;
+}
+.photo-container::before {
+    content:"";
+    position:absolute;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    top:-10px;
+    left:-10px;
+    background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
+    animation:pulse 2s infinite;
+}
+@keyframes pulse {
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+/* BUTTERFLIES */
+.butterflies span {
+    position:absolute;
+    font-size:20px;
+    animation:fly 10s linear infinite;
+    text-shadow:0 0 10px white,0 0 20px pink;
+}
+@keyframes fly {
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+/* PETALS */
+.petals span {
+    position:absolute;
+    font-size:18px;
+    animation:fall 8s linear infinite;
+}
+@keyframes fall {
+    0%{transform:translateY(-10vh);}
+    100%{transform:translateY(110vh);}
+}
+
+/* BUTTON */
+.map-btn {
+    padding:10px 20px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,pink,hotpink);
+    color:white;
+    cursor:pointer;
+}
+
+/* CONFETTI */
+#confetti {
+    position:fixed;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+
+/* SECTION */
+section {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro" onclick="startExperience()">
+    <h1>✨ Tap to Open Invitation ✨</h1>
+</div>
+
+<div class="slideshow">
+<img src="photo1.jpg" class="slide active">
+<img src="photo2.jpg" class="slide">
+<img src="photo3.jpg" class="slide">
+<img src="photo4.jpg" class="slide">
+</div>
+
+<div class="fairy-bg"></div>
+<div class="butterflies"></div>
+<div class="petals"></div>
+<canvas id="confetti"></canvas>
+
+<section>
+<div class="hero-card">
+<h1 class="baby-text">👑 Baby Turns One 👑</h1>
+
+<div class="photo-container">
+<img src="photo.jpg">
+</div>
+
+<h2 class="name">H.PRANITHAA</h2>
+<p>A magical princess celebration 💖</p>
+</div>
+</section>
+
+<section>
+<div class="hero-card">
+<h2>Event Details</h2>
+<p>📅 8 May 2026</p>
+<p>⏰ 10:00 AM – 12:00 PM</p>
+<p>📍 Hotel Pams, Mayiladuthurai</p>
+
+<button class="map-btn" onclick="openMap()">View Location</button>
+</div>
+</section>
+
+<script>
+function startExperience(){
+    document.getElementById("intro").classList.add("fade-out");
+    startConfetti();
+}
+
+/* SLIDESHOW */
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[index].classList.add("active");
+    index=(index+1)%slides.length;
+},4000);
+
+/* FAIRY */
+const fairy=document.querySelector(".fairy-bg");
+for(let i=0;i<50;i++){
+    let s=document.createElement("span");
+    s.style.left=Math.random()*100+"%";
+    fairy.appendChild(s);
+}
+
+/* BUTTERFLIES */
+const bfly=document.querySelector(".butterflies");
+for(let i=0;i<15;i++){
+    let b=document.createElement("span");
+    b.innerHTML="🦋";
+    b.style.left=Math.random()*100+"%";
+    bfly.appendChild(b);
+}
+
+/* PETALS */
+const petals=document.querySelector(".petals");
+for(let i=0;i<20;i++){
+    let p=document.createElement("span");
+    p.innerHTML="🌸";
+    p.style.left=Math.random()*100+"%";
+    petals.appendChild(p);
+}
+
+/* MAP */
+function openMap(){
+    window.open("https://www.google.com/maps/search/?api=1&query=Hotel+Pams+Mayiladuthurai");
+}
+
+/* CONFETTI */
+function startConfetti(){
+    const canvas=document.getElementById("confetti");
+    const ctx=canvas.getContext("2d");
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+
+    let pieces=[];
+    for(let i=0;i<100;i++){
+        pieces.push({
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height,
+            size:Math.random()*6,
+            speed:Math.random()*3+2
+        });
+    }
+
+    function update(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pieces.forEach(p=>{
+            p.y+=p.speed;
+            ctx.fillStyle="pink";
+            ctx.fillRect(p.x,p.y,p.size,p.size);
+            if(p.y>canvas.height) p.y=0;
+        });
+        requestAnimationFrame(update);
+    }
+    update();
+}
+</script>
+
+</body>
+</html>
+```
